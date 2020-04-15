@@ -1,0 +1,23 @@
+﻿<Window x:Class="ZylixTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZylixTest"
+        mc:Ignorable="d"
+        Title="MainWindow" MinWidth="215" Height="450" Width="800" ResizeMode="CanResize" WindowState="Maximized" SizeChanged="Window_SizeChanged">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="200" MaxWidth="240" Width="*"/>
+            <ColumnDefinition x:Name="ctntColum" Width="*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="0" Background="Magenta" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TextBlock Text="Hello World  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
+        </ScrollViewer>
+        <ScrollViewer x:Name="ctntScroll" Visibility="Visible" Grid.Column="1" Background="Green"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="Auto">
+            <TextBlock Text="Hello World  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
+        </ScrollViewer>
+
+
+    </Grid>
+</Window>
