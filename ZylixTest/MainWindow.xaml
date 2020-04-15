@@ -8,16 +8,21 @@
         Title="MainWindow" MinWidth="215" Height="450" Width="800" ResizeMode="CanResize" WindowState="Maximized" SizeChanged="Window_SizeChanged">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition MinWidth="200" MaxWidth="240" Width="*"/>
-            <ColumnDefinition x:Name="ctntColum" Width="*"/>
+            <!-- Definição da coluna da árvore -->
+            <ColumnDefinition x:Name="treeColum" MinWidth="1" MaxWidth="1800"  Width="180" />
+            <!--Definição para o Grid Splitter -->
+            <ColumnDefinition x:Name="strechBar" Width="6"/>
+            <!-- Definição para o conteúdo do elemento selecionado-->
+            <ColumnDefinition x:Name="ctntColum" MinWidth="100"  Width="*"/>
         </Grid.ColumnDefinitions>
-        <ScrollViewer Grid.Column="0" Background="Magenta" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TextBlock Text="Hello World  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
+        <!-- implemetation of the tree c-->
+        <ScrollViewer Grid.Column="0" Background="White" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TextBlock Text="Hello World colocando texto randomico aqui para testar os scrolls  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
         </ScrollViewer>
-        <ScrollViewer x:Name="ctntScroll" Visibility="Visible" Grid.Column="1" Background="Green"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="Auto">
-            <TextBlock Text="Hello World  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
+        <ScrollViewer x:Name="ctntScroll" Visibility="Visible" Grid.Column="2" Background="White"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="Auto">
+            <TextBlock Text="Hello World colocando texto randomico aqui para testar os scrolls  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
         </ScrollViewer>
 
-
+        <GridSplitter Grid.Column="1" Background="LightGray" HorizontalAlignment="Left" Width="6" BorderThickness="1" BorderBrush="Black" Margin="0"/>
     </Grid>
 </Window>
