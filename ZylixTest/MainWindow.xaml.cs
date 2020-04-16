@@ -35,24 +35,27 @@ namespace ZylixTest
                 //Caso a coluna de conteúdo esteje escondida, mostrar novamente ela
                 if (content_hiden){
                     content_hiden = false;
+                    //Mostra o conteúdo dentro do Scroll
                     ctntScroll.Visibility = Visibility.Visible;
-                    ctntColum.Width = new GridLength(1,GridUnitType.Star);
+                    ctntColum.Width = new GridLength(4,GridUnitType.Star);
+                    //treeColum.Width = GridLength.Auto;
                 }
                 //Caso a tela diminua a 300px de largura, desativar o scroll bar da coluna de conteúdo
                 if (e.NewSize.Width <= 300){
                     ctntScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Disabled;
-                    //ctntScroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Disabled;
                 }
                 else{
                     ctntScroll.VerticalScrollBarVisibility = ScrollBarVisibility.Auto;
-                    //ctntScroll.HorizontalScrollBarVisibility = ScrollBarVisibility.Auto;
                 }
             }
             //Caso a largura seja menor de 200 px, esconder a coluna 2 (coluna de conteúdo)
             else{
                 content_hiden = true;
-                ctntScroll.Visibility = Visibility.Collapsed;
-                ctntColum.Width = GridLength.Auto;
+                //Esconde o conteúdo dentro do scoll
+                ctntScroll.Visibility = Visibility.Hidden;
+                ctntColum.Width = new GridLength(0);
+                //Seta a coluna da árcore como *
+                treeColum.Width = new GridLength(1, GridUnitType.Star);
             }
             
         }

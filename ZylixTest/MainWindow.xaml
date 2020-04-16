@@ -5,24 +5,61 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZylixTest"
         mc:Ignorable="d"
-        Title="MainWindow" MinWidth="215" Height="450" Width="800" ResizeMode="CanResize" WindowState="Maximized" SizeChanged="Window_SizeChanged">
-    <Grid>
+        Title="Zylix Test" MinWidth="100" Height="450" Width="800" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <!-- Definição da coluna da árvore -->
-            <ColumnDefinition x:Name="treeColum" MinWidth="1" MaxWidth="1800"  Width="180" />
-            <!--Definição para o Grid Splitter -->
-            <ColumnDefinition x:Name="strechBar" Width="6"/>
-            <!-- Definição para o conteúdo do elemento selecionado-->
-            <ColumnDefinition x:Name="ctntColum" MinWidth="100"  Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <!-- 1- Definição da coluna da árvore -->
+            <ColumnDefinition x:Name="treeColum" MinWidth="10" Width="*"/>
+            <!-- 2- Definição para o conteúdo do elemento selecionado-->
+            <ColumnDefinition x:Name="ctntColum"  Width="4*"/>
+            <ColumnDefinition Width="5"/>
         </Grid.ColumnDefinitions>
-        <!-- implemetation of the tree c-->
-        <ScrollViewer Grid.Column="0" Background="White" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TextBlock Text="Hello World colocando texto randomico aqui para testar os scrolls  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Background="LightGray"/>
+        <Border Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Background="LightGray"/>
+        <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Background="LightGray"/>
+        <Border Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Background="LightGray"/>
+        
+        <!-- Implementaçao da tree-->
+        <ScrollViewer Margin="3" Grid.Column="1" Grid.Row="1" Background="White" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <TreeView>
+                
+            </TreeView>
         </ScrollViewer>
-        <ScrollViewer x:Name="ctntScroll" Visibility="Visible" Grid.Column="2" Background="White"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Width="Auto">
-            <TextBlock Text="Hello World colocando texto randomico aqui para testar os scrolls  pu &#x0d;&#x0a; asd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; &#x0d;&#x0a; asdasd &#x0d;&#x0a; sdfsdf &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;asdasd &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; asdfdsfsdg &#x0d;&#x0a;&#x0d;&#x0a;&#x0d;&#x0a; pppp &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  asdasdddd &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a; &#x0d;&#x0a;  dddddsssdasdasdasdasd" />
-        </ScrollViewer>
+       <!-- Implementraçao dos elementos-->
+        <ScrollViewer Margin="5" Grid.Column="2" Grid.Row="1" x:Name="ctntScroll" Visibility="Visible" Background="White"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition x:Name="last" Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Content="ID" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
+                <!-- Define o nome dos parametros-->
+                <Label Grid.Column="1" Content="Description" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
+                <Label Grid.Column="2" Content="Value" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
+                <Label Grid.Column="3" Content="Comment" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
+                <!-- Teste-->
+                <Label Grid.Column="0" Grid.Row="1" Content="105"/>
+                <Label Grid.Column="1" Grid.Row="1" Content="Maximum Available arms"/>
+                <Label Grid.Column="2" Grid.Row="1" Content="0"/>
+                <Label Grid.Column="3" Grid.Row="1" Content=""/>
 
-        <GridSplitter Grid.Column="1" Background="LightGray" HorizontalAlignment="Left" Width="6" BorderThickness="1" BorderBrush="Black" Margin="0"/>
+            </Grid>
+        </ScrollViewer>
+        <!-- Controla o grid spliter que controla o tamanho das partes da janela-->
+        <GridSplitter Grid.Column="2" Grid.Row="1" Background="LightGray" HorizontalAlignment="Left" Width="6" BorderThickness="1" BorderBrush="Black" Margin="0"/>
+
     </Grid>
 </Window>
