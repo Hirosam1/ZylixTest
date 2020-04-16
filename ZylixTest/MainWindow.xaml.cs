@@ -38,6 +38,7 @@ namespace ZylixTest
         {
             this.file_path = file_path;
             all_items = new List<TreeViewItem>();
+            conteudo_mostar = new List<Conteudo>();
             file_lines = File.ReadAllLines(file_path).ToList();
         }
         public List<Conteudo> conteudo_mostar;
@@ -105,17 +106,18 @@ namespace ZylixTest
                                     aba_selecionada.all_items.Add(newChild);
                                 }
                             }
+                            
                         }
                     }
                 }  
             }
         }
         //Carrega o conteúdo selecionado na tree
-        private void CarregarTela_Conteudo(string target)
+        private void Carregar_Conteudo(string target)
         {
+            aba_selecionada.conteudo_mostar.Clear();
             bool isItem_find = false;
             string[] tokens;
-            ctntGrid.Items.Clear();
             foreach (string line in aba_selecionada.file_lines)
             {
                 if (line.Length > 0)
@@ -124,6 +126,7 @@ namespace ZylixTest
                     {
                         if (isItem_find)
                         {
+                            Mostrar_conteudo();
                             return;
                         }
                         tokens = line.Split(' ');
@@ -146,11 +149,24 @@ namespace ZylixTest
                             newContent.Description = tokens[1];
                             newContent.Value = tokens[2];
                             newContent.Comments = tokens[3];
-                            ctntGrid.Items.Add(newContent);
-                            
+                            //ctntGrid.Items.Add(newContent);
+                            aba_selecionada.conteudo_mostar.Add(newContent);
+
                         }
                     }
                 }
+            }
+            Mostrar_conteudo();
+
+        }
+
+        private void Mostrar_conteudo()
+        {
+            //Isto deveria autualizar o data grid
+            ctntGrid.Items.Clear();
+            foreach (Conteudo cont in aba_selecionada.conteudo_mostar)
+            {
+                ctntGrid.Items.Add(cont);
             }
         }
 
@@ -215,7 +231,18 @@ namespace ZylixTest
         {
             TreeViewItem item = (TreeViewItem)e.OriginalSource;
             string target = item.Header.ToString();
-            CarregarTela_Conteudo(target);
+            Carregar_Conteudo(target);
+        }
+
+        private void MenuEditar_Click(object sender, RoutedEventArgs e)
+        {
+            if (ctntGrid.SelectedCells.Count > 0) { 
+                Conteudo ctd = (Conteudo)ctntGrid.SelectedCells[0].Item;
+                EditWindow eW = new EditWindow(ref ctd);
+                eW.ShowDialog();
+                //Chamar esta funçao de volta para autualizar os valores
+                Mostrar_conteudo();
+            }
         }
     }
 }

@@ -31,6 +31,7 @@
                 <MenuItem x:Name="menuLoad" Header="Carregar  arquivo" Click="menuLoad_Click"/>
                 <MenuItem x:Name="menuSave" Header="Salvar  arquivo" Click="menuSave_Click"/>
             </MenuItem>
+            <MenuItem Header="Editar Selecionado" Click="MenuEditar_Click"/>
         </Menu>
         <!-- Implementaçao da tree-->
         <ScrollViewer Margin="3" Grid.Column="1" Grid.Row="2" Background="White" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
