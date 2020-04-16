@@ -32,18 +32,29 @@ namespace ZylixTest
         public string Comments { get; set; }
     }
 
+    class MeuItem
+    {
+        public MeuItem()
+        {
+            conteudo_mostar = new List<Conteudo>();
+        }
+        public List<Conteudo> conteudo_mostar;
+    }
+
     class Aba
     {
         public Aba(string file_path)
         {
             this.file_path = file_path;
-            all_items = new List<TreeViewItem>();
-            conteudo_mostar = new List<Conteudo>();
+            all_items = new Dictionary<string, MeuItem>();
+            all_items_tree = new List<TreeViewItem>();
+            //conteudo_mostar = new List<Conteudo>();
             file_lines = File.ReadAllLines(file_path).ToList();
         }
-        public List<Conteudo> conteudo_mostar;
+        //public List<Conteudo> conteudo_mostar;
         public List<string> file_lines;
-        public List<TreeViewItem> all_items;
+        public List<TreeViewItem> all_items_tree;
+        public Dictionary<string,MeuItem> all_items;
         public string file_path;
     }
     public partial class MainWindow : Window
@@ -51,6 +62,7 @@ namespace ZylixTest
 
         Aba aba_selecionada;
         bool content_hiden = false;
+        string item_selecionado = "";
 
         public MainWindow()
         {
@@ -59,7 +71,7 @@ namespace ZylixTest
         }
         private TreeViewItem EncontrarItem(string header)
         {
-            foreach(TreeViewItem item in aba_selecionada.all_items)
+            foreach(TreeViewItem item in aba_selecionada.all_items_tree)
             {
                 if(item.Header.ToString() == header)
                 {
@@ -92,7 +104,7 @@ namespace ZylixTest
                                 newChild.Header = tokens[1];
                                 newChild.Selected += treeItem_Selected;
                                 filetree_main.Items.Add(newChild);
-                                aba_selecionada.all_items.Add(newChild);
+                                aba_selecionada.all_items_tree.Add(newChild);
                             }
                             //Caso contrário encontrar pai na lista de todos os item e inserir este item como filho do pai
                             else
@@ -103,7 +115,7 @@ namespace ZylixTest
                                     newChild.Header = tokens[1];
                                     newChild.Selected += treeItem_Selected;
                                     parent.Items.Add(newChild);
-                                    aba_selecionada.all_items.Add(newChild);
+                                    aba_selecionada.all_items_tree.Add(newChild);
                                 }
                             }
                             
@@ -113,9 +125,9 @@ namespace ZylixTest
             }
         }
         //Carrega o conteúdo selecionado na tree
-        private void Carregar_Conteudo(string target)
+        private void Carregar_Conteudo()
         {
-            aba_selecionada.conteudo_mostar.Clear();
+            //aba_selecionada.conteudo_mostar.Clear();
             bool isItem_find = false;
             string[] tokens;
             foreach (string line in aba_selecionada.file_lines)
@@ -132,9 +144,14 @@ namespace ZylixTest
                         tokens = line.Split(' ');
                         if (tokens.Length > 2)
                         {
-                            if(tokens[1] == target)
-                            {
-                                isItem_find = true;
+                            if(tokens[1] == item_selecionado)
+                            {   
+                                
+                                if(!aba_selecionada.all_items.ContainsKey(item_selecionado))
+                                {
+                                    aba_selecionada.all_items.Add(item_selecionado, new MeuItem());
+                                    isItem_find = true;
+                                }
                             }
                         }
                     }else if (isItem_find)
@@ -149,8 +166,10 @@ namespace ZylixTest
                             newContent.Description = tokens[1];
                             newContent.Value = tokens[2];
                             newContent.Comments = tokens[3];
+                            aba_selecionada.all_items[item_selecionado].conteudo_mostar.Add(newContent);
                             //ctntGrid.Items.Add(newContent);
-                            aba_selecionada.conteudo_mostar.Add(newContent);
+                            //aba_selecionada.conteudo_mostar.Add(newContent);
+
 
                         }
                     }
@@ -162,9 +181,8 @@ namespace ZylixTest
 
         private void Mostrar_conteudo()
         {
-            //Isto deveria autualizar o data grid
             ctntGrid.Items.Clear();
-            foreach (Conteudo cont in aba_selecionada.conteudo_mostar)
+            foreach (Conteudo cont in aba_selecionada.all_items[item_selecionado].conteudo_mostar)
             {
                 ctntGrid.Items.Add(cont);
             }
@@ -230,8 +248,8 @@ namespace ZylixTest
         private void treeItem_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = (TreeViewItem)e.OriginalSource;
-            string target = item.Header.ToString();
-            Carregar_Conteudo(target);
+            item_selecionado = item.Header.ToString();
+            Carregar_Conteudo();
         }
 
         private void MenuEditar_Click(object sender, RoutedEventArgs e)
