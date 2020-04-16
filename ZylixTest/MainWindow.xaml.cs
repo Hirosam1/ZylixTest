@@ -15,26 +15,47 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//Classe Aba, que contem informaçao do arquivo
+class Aba
+{  
+    public Aba(string file_path)
+    {
+        this.file_path = file_path;
+        all_items = new List<TreeViewItem>();
+        file_lines = File.ReadAllLines(file_path).ToList();
+    }
+    public List<string> file_lines;
+    public List<TreeViewItem> all_items;
+    public string file_path;
+}
+
 namespace ZylixTest
 {
     /// <summary>
     /// Interação lógica para MainWindow.xam
     /// </summary>
+    /// 
+    public class Conteudo
+    {
+        public string ID { get; set; }
+        public string Description { get; set; }
+        public string Value { get; set; }
+        public string Comments { get; set; }
+    }
     public partial class MainWindow : Window
     {
+
+        Aba aba_selecionada;
         bool content_hiden = false;
-        List<string> file_lines;
-        List<TreeViewItem> all_items;
-        string file_path;
+
         public MainWindow()
         {
             InitializeComponent();
-            all_items = new List<TreeViewItem>();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
         }
         private TreeViewItem EncontrarItem(string header)
         {
-            foreach(TreeViewItem item in all_items)
+            foreach(TreeViewItem item in aba_selecionada.all_items)
             {
                 if(item.Header.ToString() == header)
                 {
@@ -44,8 +65,9 @@ namespace ZylixTest
             return null;
         }
         //Carrega a tree do arquivo selecionado
-        private void CarregarTela_Tree(List<string> lines)
+        private void CarregarTela_Tree()
         {
+            List<string> lines = aba_selecionada.file_lines;
             TreeViewItem newChild;
             TreeViewItem parent;
             string[] tokens;
@@ -53,20 +75,22 @@ namespace ZylixTest
             {
                 if (line.Length > 0)
                 {
+                    //Caso encontre um item novo
                     if (line[0] == '#')
                     {
                         tokens = line.Split(' ');
                         if(tokens.Length > 2)
                         {
+                            //Caso o pai desse item seje main, inserir o item na raiz da arvore
                             if (tokens[2] == "main")
                             {
                                 newChild = new TreeViewItem();
                                 newChild.Header = tokens[1];
                                 newChild.Selected += treeItem_Selected;
                                 filetree_main.Items.Add(newChild);
-                                all_items.Add(newChild);
+                                aba_selecionada.all_items.Add(newChild);
                             }
-                            
+                            //Caso contrário encontrar pai na lista de todos os item e inserir este item como filho do pai
                             else
                             {
                                 if( (parent =EncontrarItem(tokens[2])) != null)
@@ -75,7 +99,7 @@ namespace ZylixTest
                                     newChild.Header = tokens[1];
                                     newChild.Selected += treeItem_Selected;
                                     parent.Items.Add(newChild);
-                                    all_items.Add(newChild);
+                                    aba_selecionada.all_items.Add(newChild);
                                 }
                             }
                         }
@@ -84,9 +108,46 @@ namespace ZylixTest
             }
         }
         //Carrega o conteúdo selecionado na tree
-        private void CarregarTela_Conteudo()
+        private void CarregarTela_Conteudo(string target)
         {
-
+            bool isItem_find = false;
+            string[] tokens;
+            ctntGrid.Items.Clear();
+            foreach (string line in aba_selecionada.file_lines)
+            {
+                if (line.Length > 0)
+                {
+                    if (line[0] == '#')
+                    {
+                        if (isItem_find)
+                        {
+                            return;
+                        }
+                        tokens = line.Split(' ');
+                        if (tokens.Length > 2)
+                        {
+                            if(tokens[1] == target)
+                            {
+                                isItem_find = true;
+                            }
+                        }
+                    }else if (isItem_find)
+                    {
+                        tokens = line.Split(',');
+                        if(tokens.Length > 3)
+                        {
+                            RowDefinition row = new RowDefinition();
+                            row.Height = new GridLength(1, GridUnitType.Star);
+                            Conteudo newContent = new Conteudo();
+                            newContent.ID = tokens[0];
+                            newContent.Description = tokens[1];
+                            newContent.Value = tokens[2];
+                            newContent.Comments = tokens[3];
+                            ctntGrid.Items.Add(newContent);
+                        }
+                    }
+                }
+            }
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -126,9 +187,11 @@ namespace ZylixTest
             OpenFileDialog openDlg = new OpenFileDialog();
             openDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
             if(openDlg.ShowDialog() == true){
-                file_path = openDlg.FileName;
-                file_lines = File.ReadAllLines(file_path).ToList();
-                CarregarTela_Tree(file_lines);
+                /*file_path = openDlg.FileName;
+                file_lines = File.ReadAllLines(file_path).ToList();*/
+                Aba umaAba = new Aba(openDlg.FileName);
+                aba_selecionada = umaAba;
+                CarregarTela_Tree();
             }
         }
 
@@ -140,17 +203,16 @@ namespace ZylixTest
             svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
             if(svDlg.ShowDialog() == true)
             {
-                File.WriteAllLines(svDlg.FileName, file_lines);
+                File.WriteAllLines(svDlg.FileName, aba_selecionada.file_lines);
             }
         }
 
         private void treeItem_Selected(object sender, RoutedEventArgs e)
         {
-            TreeViewItem item = (TreeViewItem)sender;
-            foreach(string line in file_lines)
-            {
-
-            }
+            TreeViewItem item = (TreeViewItem)e.OriginalSource;
+            string target = item.Header.ToString();
+            Title = target;
+            CarregarTela_Conteudo(target);
         }
     }
 }
