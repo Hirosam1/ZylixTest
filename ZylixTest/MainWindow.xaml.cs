@@ -23,11 +23,70 @@ namespace ZylixTest
     public partial class MainWindow : Window
     {
         bool content_hiden = false;
+        List<string> file_lines;
+        List<TreeViewItem> all_items;
+        string file_path;
         public MainWindow()
         {
             InitializeComponent();
-
+            all_items = new List<TreeViewItem>();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }
+        private TreeViewItem EncontrarItem(string header)
+        {
+            foreach(TreeViewItem item in all_items)
+            {
+                if(item.Header.ToString() == header)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+        //Carrega a tree do arquivo selecionado
+        private void CarregarTela_Tree(List<string> lines)
+        {
+            TreeViewItem newChild;
+            TreeViewItem parent;
+            string[] tokens;
+            foreach (string line in lines)
+            {
+                if (line.Length > 0)
+                {
+                    if (line[0] == '#')
+                    {
+                        tokens = line.Split(' ');
+                        if(tokens.Length > 2)
+                        {
+                            if (tokens[2] == "main")
+                            {
+                                newChild = new TreeViewItem();
+                                newChild.Header = tokens[1];
+                                newChild.Selected += treeItem_Selected;
+                                filetree_main.Items.Add(newChild);
+                                all_items.Add(newChild);
+                            }
+                            
+                            else
+                            {
+                                if( (parent =EncontrarItem(tokens[2])) != null)
+                                {
+                                    newChild = new TreeViewItem();
+                                    newChild.Header = tokens[1];
+                                    newChild.Selected += treeItem_Selected;
+                                    parent.Items.Add(newChild);
+                                    all_items.Add(newChild);
+                                }
+                            }
+                        }
+                    }
+                }  
+            }
+        }
+        //Carrega o conteúdo selecionado na tree
+        private void CarregarTela_Conteudo()
+        {
+
         }
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -65,7 +124,12 @@ namespace ZylixTest
         private void menuLoad_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openDlg = new OpenFileDialog();
-            openDlg.ShowDialog();
+            openDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
+            if(openDlg.ShowDialog() == true){
+                file_path = openDlg.FileName;
+                file_lines = File.ReadAllLines(file_path).ToList();
+                CarregarTela_Tree(file_lines);
+            }
         }
 
 
@@ -73,10 +137,19 @@ namespace ZylixTest
         {
             SaveFileDialog svDlg = new SaveFileDialog();
             svDlg.AddExtension = true;
-            svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix | Todos arquivos (*)|*";
+            svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
             if(svDlg.ShowDialog() == true)
             {
-                File.WriteAllText(svDlg.FileName, "hey hey heeey");
+                File.WriteAllLines(svDlg.FileName, file_lines);
+            }
+        }
+
+        private void treeItem_Selected(object sender, RoutedEventArgs e)
+        {
+            TreeViewItem item = (TreeViewItem)sender;
+            foreach(string line in file_lines)
+            {
+
             }
         }
     }

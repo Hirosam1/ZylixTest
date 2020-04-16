@@ -34,16 +34,8 @@
         </Menu>
         <!-- Implementaçao da tree-->
         <ScrollViewer Margin="3" Grid.Column="1" Grid.Row="2" Background="White" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <TreeView>
-                <TreeViewItem Header="Config Directory">
-                    <TreeViewItem Header="000 System Layout"/>
-                    <TreeViewItem Header="100 Pulse Inputs"/>
-                </TreeViewItem>
-                <TreeViewItem Header="System Directory">
-                    <TreeViewItem Header="Security Directotry"/>
-                    <TreeViewItem Header="001 - General Purpose"/>
-                </TreeViewItem>
-            </TreeView>
+            <TreeView x:Name="filetree_main"/>
+
         </ScrollViewer>
        <!-- Implementraçao dos elementos-->
         <ScrollViewer Margin="5" Grid.Column="2" Grid.Row="2" x:Name="ctntScroll" Visibility="Visible" Background="White"  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -65,10 +57,10 @@
                 <Label Grid.Column="2" Content="Value" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
                 <Label Grid.Column="3" Content="Comment" Background="LightGray" BorderBrush="DarkGray" BorderThickness="1"/>
                 <!-- Teste-->
-                <TextBox x:Name="ID_1" Grid.Column="0" Grid.Row="1" Text="105"/>
-                <TextBox x:Name="DESC_1" Grid.Column="1" Grid.Row="1" Text="Maximum Available arms"/>
-                <TextBox x:Name="VAL_1" Grid.Column="2" Grid.Row="1" Text="0"/>
-                <TextBox x:Name="COM_1" Grid.Column="3" Grid.Row="1" Text=""/>
+                <TextBox x:Name="ID_1" Grid.Column="0" Grid.Row="1" Text="105" BorderThickness="0"/>
+                <TextBox x:Name="DESC_1" Grid.Column="1" Grid.Row="1" Text="Maximum Available arms" BorderThickness="0"/>
+                <TextBox x:Name="VAL_1" Grid.Column="2" Grid.Row="1" Text="0" BorderThickness="0"/>
+                <TextBox x:Name="COM_1" Grid.Column="3" Grid.Row="1" Text="" BorderThickness="0"/>
 
             </Grid>
         </ScrollViewer>
