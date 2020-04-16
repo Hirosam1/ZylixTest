@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZylixTest"
         mc:Ignorable="d"
-        Title="Zylix Test" MinWidth="100" Height="450" Width="904" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
+        Title="Zylix Test" MinWidth="100" Height="450" Width="915" ResizeMode="CanResize" SizeChanged="Window_SizeChanged">
     <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition Height="5"/>
@@ -26,10 +26,11 @@
         <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Background="LightGray"/>
         <Border Grid.Column="3" Grid.Row="0" Grid.RowSpan="4" Background="LightGray"/>
         <!-- Implementaçao do menu iniciar-->
-        <Menu Grid.Column="1" Grid.Row="1" Background="LightGray" Margin="3">
+        <Menu Grid.Column="1" Grid.Row="1" Background="LightGray" Margin="3" Grid.ColumnSpan="2">
             <MenuItem Header="Arquivo" Background="LightGray">
                 <MenuItem x:Name="menuLoad" Header="Carregar  arquivo" Click="menuLoad_Click"/>
                 <MenuItem x:Name="menuSave" Header="Salvar  arquivo" Click="menuSave_Click"/>
+                <MenuItem x:Name="openFiles" Header="Arquivos Abertos"/>
             </MenuItem>
             <MenuItem Header="Editar Selecionado" Click="MenuEditar_Click"/>
         </Menu>
