@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +60,24 @@ namespace ZylixTest
                 treeColum.Width = new GridLength(1, GridUnitType.Star);
             }
             
+        }
+
+        private void menuLoad_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.ShowDialog();
+        }
+
+
+        private void menuSave_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog svDlg = new SaveFileDialog();
+            svDlg.AddExtension = true;
+            svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix | Todos arquivos (*)|*";
+            if(svDlg.ShowDialog() == true)
+            {
+                File.WriteAllText(svDlg.FileName, "hey hey heeey");
+            }
         }
     }
 }
