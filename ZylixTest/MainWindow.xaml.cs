@@ -16,18 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 //Classe Aba, que contem informaçao do arquivo
-class Aba
-{  
-    public Aba(string file_path)
-    {
-        this.file_path = file_path;
-        all_items = new List<TreeViewItem>();
-        file_lines = File.ReadAllLines(file_path).ToList();
-    }
-    public List<string> file_lines;
-    public List<TreeViewItem> all_items;
-    public string file_path;
-}
+
 
 namespace ZylixTest
 {
@@ -41,6 +30,20 @@ namespace ZylixTest
         public string Description { get; set; }
         public string Value { get; set; }
         public string Comments { get; set; }
+    }
+
+    class Aba
+    {
+        public Aba(string file_path)
+        {
+            this.file_path = file_path;
+            all_items = new List<TreeViewItem>();
+            file_lines = File.ReadAllLines(file_path).ToList();
+        }
+        public List<Conteudo> conteudo_mostar;
+        public List<string> file_lines;
+        public List<TreeViewItem> all_items;
+        public string file_path;
     }
     public partial class MainWindow : Window
     {
@@ -144,6 +147,7 @@ namespace ZylixTest
                             newContent.Value = tokens[2];
                             newContent.Comments = tokens[3];
                             ctntGrid.Items.Add(newContent);
+                            
                         }
                     }
                 }
@@ -187,8 +191,6 @@ namespace ZylixTest
             OpenFileDialog openDlg = new OpenFileDialog();
             openDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
             if(openDlg.ShowDialog() == true){
-                /*file_path = openDlg.FileName;
-                file_lines = File.ReadAllLines(file_path).ToList();*/
                 Aba umaAba = new Aba(openDlg.FileName);
                 aba_selecionada = umaAba;
                 CarregarTela_Tree();
@@ -201,17 +203,18 @@ namespace ZylixTest
             SaveFileDialog svDlg = new SaveFileDialog();
             svDlg.AddExtension = true;
             svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
-            if(svDlg.ShowDialog() == true)
+            Conteudo ctd = (Conteudo) ctntGrid.SelectedCells[0].Item;
+            Title = ctd.ID.ToString();
+            /*if(svDlg.ShowDialog() == true)
             {
                 File.WriteAllLines(svDlg.FileName, aba_selecionada.file_lines);
-            }
+            }*/
         }
 
         private void treeItem_Selected(object sender, RoutedEventArgs e)
         {
             TreeViewItem item = (TreeViewItem)e.OriginalSource;
             string target = item.Header.ToString();
-            Title = target;
             CarregarTela_Conteudo(target);
         }
     }
