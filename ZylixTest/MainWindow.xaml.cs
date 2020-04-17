@@ -289,7 +289,47 @@ namespace ZylixTest
             }
         }
 
+        private ItemArvore EncontrarItemArvore(TreeViewItem tree_item)
+        {
+            foreach(ItemArvore item in aba_selecionada.all_items_tree)
+            {
+                if(item.item == tree_item)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
 
+        private void WriteFile(string file_path)
+        {
+            List<ItemArvore> all_items_tree = aba_selecionada.all_items_tree;
+            string line = "";
+            List<string> all_lines = new List<string>();
+            string aux;
+            TreeViewItem m_item;
+            Title = all_items_tree.Count().ToString();
+            foreach(ItemArvore item_ar in all_items_tree)
+            {
+                aux = " main";
+                if(item_ar.pai != null)
+                {
+                    aux = " " + item_ar.pai.Header.ToString();
+                }
+                line = "# " + item_ar.item.Header.ToString() + aux;
+                all_lines.Add(line);
+                item_selecionado = item_ar.item.Header.ToString();
+                Carregar_Conteudo();
+                foreach (Conteudo cont in aba_selecionada.all_items[item_selecionado].conteudo_mostar)
+                {
+                    line = cont.ID + ", " + cont.Description + ", " + cont.Value + ", " + cont.Comments;
+                    all_lines.Add(line);
+                }
+
+            }
+
+            File.AppendAllLines(file_path, all_lines);
+        }
         private void menuSave_Click(object sender, RoutedEventArgs e)
         {
             SaveFileDialog svDlg = new SaveFileDialog();
@@ -297,7 +337,7 @@ namespace ZylixTest
             svDlg.Filter = "Arquivo Zylix (*.zylix)|*.zylix";
             if(svDlg.ShowDialog() == true)
             {
-                File.WriteAllLines(svDlg.FileName, aba_selecionada.file_lines);
+                WriteFile(svDlg.FileName);
             }
         }
 
