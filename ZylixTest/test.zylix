@@ -1,0 +1,29 @@
+# System_Directory main
+
+# General_Purpose System_Directory
+105, Maximum Available Arms, 0, 
+1110, Pemex option, Enabled, 
+101, Date, , Read Only 
+102, Time, , Read Only
+103, MAC Adress, 00:0c:29:55:00:d1, 
+104, Firmware Revision, 0.9, 
+1102, Firmware indentifier, ge22ed23f[overlay], 
+1103 unit ID, AccuLoadIV, 
+
+# Flow_Control System_Directory
+201, Solenoid Alarm Count, 0, 0
+204, Solenoid Count Clear,Manual, 
+202,Leakage Alarm Limit, 0.0, 0
+203, Reverse Dlow Limit, 0.0, 
+1200, Flow Simulator Selection, Disable, 0
+
+# Volume_Accuracy System_Directory
+101, Pulse Transmitter Select, Single, 
+102, Transmitter Integrity, no, 
+146, Reverse Volume - Batch, ignore,
+146, Reverse Volume - Non- resets, ignore,
+301, Volume Units, gal, 
+302, Mass Units, lb, 
+303, Volume descriptor, gal, 
+304, Mass Descriptor, lb, 
+305, Pulse in type, Volume,
